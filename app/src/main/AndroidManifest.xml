@@ -18,7 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailRepoActivity"></activity>
+        <activity android:name=".DetailRepoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeMainActivity" />
+        </activity>
     </application>
 
 </manifest>

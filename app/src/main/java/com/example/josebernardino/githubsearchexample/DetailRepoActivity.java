@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import com.example.josebernardino.githubsearchexample.model.Owner;
 import com.example.josebernardino.githubsearchexample.model.Repos;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,11 +39,17 @@ public class DetailRepoActivity extends AppCompatActivity {
     @BindView(R.id.tv_owner_name)
     TextView mTextViewOwnerName;
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_repo);
         ButterKnife.bind(this);
+
+        //mToolbar.setTitle(getString(R.string.app_name));
+       // mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -58,5 +68,19 @@ public class DetailRepoActivity extends AppCompatActivity {
                 mRecyclerView.setLayoutManager(layout);
             }
         }
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                finish();
+            }
+        });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeMainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }
