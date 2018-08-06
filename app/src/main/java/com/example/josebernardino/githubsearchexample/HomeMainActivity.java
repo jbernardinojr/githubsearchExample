@@ -1,5 +1,7 @@
 package com.example.josebernardino.githubsearchexample;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import com.example.josebernardino.githubsearchexample.model.Owner;
 import com.example.josebernardino.githubsearchexample.model.Repos;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +30,8 @@ public class HomeMainActivity extends AppCompatActivity {
 
     private static final String TAG = HomeMainActivity.class.getSimpleName();
     public static final String API_BASE_URL = "https://api.github.com/";
+    public static final String ACTION_SHOW_REPOS = "listRepo";
+    public static final String OWNER_OBJECT = "owner";
 
     @BindView(R.id.edt_txt_search)
     EditText editTextSearch;
@@ -60,12 +65,18 @@ public class HomeMainActivity extends AppCompatActivity {
                         int statusCode = response.code();
                         if (statusCode == 200) {
                             List<Repos> repos = response.body();
-                            Owner owner;
-                            for (Repos repo : repos) {
-                                owner = repo.getOwner();
-                                Log.d(TAG, "onResponse: " + repo.getLanguage()
-                                        + " Avatar: " + owner.getAvatarUrl()
-                                        + " Name: " + owner.getLogin());
+                            if (repos != null) {
+                                /*
+                                Intent intent = new Intent(getApplicationContext(), DetailRepoActivity.class);
+                                intent.putParcelableArrayListExtra(ACTION_SHOW_REPOS, (ArrayList<? extends Parcelable>) repos);
+                                startActivity(intent);
+*/
+                                Owner owner = repos.get(0).getOwner();
+                                Intent intent = new Intent(getApplicationContext(), DetailRepoActivity.class);
+                                intent.putExtra(OWNER_OBJECT, owner);
+                                intent.putParcelableArrayListExtra(ACTION_SHOW_REPOS, (ArrayList<? extends Parcelable>) repos);
+                                startActivity(intent);
+
                             }
                         }
                     }
