@@ -48,9 +48,6 @@ public class DetailRepoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_repo);
         ButterKnife.bind(this);
 
-        //mToolbar.setTitle(getString(R.string.app_name));
-       // mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-
         Intent intent = getIntent();
         if (intent != null) {
             mRepos = intent.getParcelableArrayListExtra(ACTION_SHOW_REPOS);
