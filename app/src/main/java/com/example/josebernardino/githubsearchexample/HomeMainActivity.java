@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.josebernardino.githubsearchexample.api.GitHub;
 import com.example.josebernardino.githubsearchexample.model.Owner;
@@ -88,12 +89,17 @@ public class HomeMainActivity extends AppCompatActivity {
                                 intent.putParcelableArrayListExtra(ACTION_SHOW_REPOS, (ArrayList<? extends Parcelable>) repos);
                                 startActivity(intent);
                             }
+                        } else {
+                            Toast.makeText(HomeMainActivity.this, "Request failed. Http Error: " + statusCode,
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<Repos>> call, Throwable t) {
                         // Log error here since request failed
+                        Toast.makeText(HomeMainActivity.this, "Request failed. " + t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
 
